@@ -1,4 +1,4 @@
-A tiny webapp which generate UUID version 7.
+A tiny webapp which generates UUID version 7.
 
 
 
