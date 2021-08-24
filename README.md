@@ -1,79 +1,48 @@
-A tiny webapp which generates UUID version 7.
 
+# go-getting-started
 
+A barebones Go app, which can easily be deployed to Heroku.
 
-## Installation
+This application supports the [Getting Started with Go on Heroku](https://devcenter.heroku.com/articles/getting-started-with-go) article - check it out.
 
-To install Gin package, you need to install Go and set your Go workspace first.
+## Running Locally
 
-1. The first need [Go](https://golang.org/) installed (**version 1.13+ is required**), then you can use the below Go command to install Gin and others packages
-
-```sh
-$ go mod vendor
-```
-2. Then start the webapp
+Make sure you have [Go](http://golang.org/doc/install) version 1.12 or newer and the [Heroku Toolbelt](https://toolbelt.heroku.com/) installed.
 
 ```sh
-$ go run ./main.go
+$ git clone https://github.com/heroku/go-getting-started.git
+$ cd go-getting-started
+$ go build -o bin/go-getting-started -v . # or `go build -o bin/go-getting-started.exe -v .` in git bash
+github.com/mattn/go-colorable
+gopkg.in/bluesuncorp/validator.v5
+golang.org/x/net/context
+github.com/heroku/x/hmetrics
+github.com/gin-gonic/gin/render
+github.com/manucorporat/sse
+github.com/heroku/x/hmetrics/onload
+github.com/gin-gonic/gin/binding
+github.com/gin-gonic/gin
+github.com/heroku/go-getting-started
+$ heroku local
 ```
-The webapp should be accessed at http://localhost:8080/generate?version=7. The response should be an UUID version 7. Other versions are on the roadmap.
-## ROADMAP
-**UUID Generator**
-- [ ] Version 1
-- [ ] Version 2
-- [ ] Version 3
-- [ ] Version 4
-- [ ] Version 5
-- [ ] Version 6
-- [x] Version 7
-- [ ] Version 8
 
-**UUID Validator (Decoder)**
+Your app should now be running on [localhost:5000](http://localhost:5000/).
 
-- [ ] Version 1
-- [ ] Version 2
-- [ ] Version 3
-- [ ] Version 4
-- [ ] Version 5
-- [ ] Version 6
-- [ ] Version 7
-- [ ] Version 8
+## Deploying to Heroku
 
-**Benchmarking**
-- [ ] Version 1
-- [ ] Version 2
-- [ ] Version 3
-- [x] Version 4
-- [ ] Version 5
-- [ ] Version 6
-- [x] Version 7
-- [ ] Version 8
+```sh
+$ heroku create
+$ git push heroku main
+$ heroku open
+```
 
-**Benchmark results (on my PC)**
+or
 
-*UUID version 4, golang v1.17*
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
-- goos: linux
-- goarch: amd64
-- pkg: uuid-draft/benchmark
-- cpu: Intel(R) Core(TM) i7-2640M CPU @ 2.80GHz
-- BenchmarkUUIDv4-4
-- 1276732
-- 938.8 ns/op 
-- 64 B/op	       
-- 2 allocs/op
-- PASS ok  
-- uuid-draft/benchmark	2.158s
 
-*UUID version 7, golang v1.17*
-- goos: linux
-- goarch: amd64
-- pkg: uuid-draft/benchmark
-- cpu: Intel(R) Core(TM) i7-2640M CPU @ 2.80GHz
-- BenchmarkV7-4
-- 343354	      
-- 3483 ns/op	    
-- 208 B/op	       
-- 9 allocs/op
-- PASS ok  
-- uuid-draft/benchmark	1.242s
+## Documentation
+
+For more information about using Go on Heroku, see these Dev Center articles:
+
+- [Go on Heroku](https://devcenter.heroku.com/categories/go)

@@ -1,39 +1,29 @@
 package main
 
 import (
-	"fmt"
+	"log"
 	"net/http"
+	"os"
 
 	"github.com/gin-gonic/gin"
-	uuid "github.com/uuid6/uuid6go-proto"
+	_ "github.com/heroku/x/hmetrics/onload"
 )
 
 func main() {
+	port := os.Getenv("PORT")
 
-	router := gin.Default()
+	if port == "" {
+		log.Fatal("$PORT must be set")
+	}
 
-	router.GET("/generate",
-		func(c *gin.Context) {
-			// if c.Query("version") == "6" {
+	router := gin.New()
+	router.Use(gin.Logger())
+	router.LoadHTMLGlob("templates/*.tmpl.html")
+	router.Static("/static", "static")
 
-			// 	id := uuid.UUIDv6FromBytes()
-			// 	c.String(http.StatusOK, id.ToString())
-			// }
-
-			if c.Query("version") == "7" {
-				var generator uuid.UUIDv7Generator
-				id := generator.Next()
-				c.String(http.StatusOK, id.ToString())
-			}
-
-		})
-
-	router.GET("/validate", func(c *gin.Context) {
-		fmt.Println("validate")
-
-		c.String(http.StatusOK, c.Param("uuid"))
-
+	router.GET("/", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "index.tmpl.html", nil)
 	})
 
-	router.Run(":8080")
+	router.Run(":" + port)
 }
