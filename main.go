@@ -7,6 +7,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	_ "github.com/heroku/x/hmetrics/onload"
+	uuid "github.com/uuid6/uuid6go-proto"
 )
 
 func main() {
@@ -15,14 +16,15 @@ func main() {
 	if port == "" {
 		log.Fatal("$PORT must be set")
 	}
-
 	router := gin.New()
 	router.Use(gin.Logger())
-	router.LoadHTMLGlob("templates/*.tmpl.html")
-	router.Static("/static", "static")
 
 	router.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.tmpl.html", nil)
+		if c.Query("version") == "7" {
+			var generator uuid.UUIDv7Generator
+			id := generator.Next()
+			c.String(http.StatusOK, id.ToString())
+		}
 	})
 
 	router.Run(":" + port)
